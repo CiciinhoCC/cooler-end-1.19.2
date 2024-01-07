@@ -1,12 +1,16 @@
 package com.ciciinho.coolerend.item.custom;
 
+import com.ciciinho.coolerend.CoolerEnd;
 import com.ciciinho.coolerend.item.ModItems;
-import com.ciciinho.coolerend.item.client.ArmoredElytraModel;
-import com.ciciinho.coolerend.item.client.ModModelLayers;
+import com.ciciinho.coolerend.item.models.ArmoredElytraModel;
+import com.ciciinho.coolerend.item.models.ModModelLayers;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.client.model.Model;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
@@ -22,6 +26,8 @@ import javax.annotation.Nullable;
 import java.util.function.Consumer;
 
 public class ArmoredElytraItem extends ArmorItem {
+
+    private static final String LOC = new ResourceLocation(CoolerEnd.MOD_ID, "textures/armor/armored_elytra.png").toString();
 
     public ArmoredElytraItem(Item.Properties props, ModArmorMaterial mat) {
         super(mat, EquipmentSlot.CHEST, props);
@@ -80,5 +86,17 @@ public class ArmoredElytraItem extends ArmorItem {
                 return model;
             }
         });
+    }
+
+    @Override
+    public @Nullable String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
+
+        return LOC;
+    }
+
+
+    public static Model getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlot slot, HumanoidModel<?> _default)
+    {
+        return new ArmoredElytraModel(ArmoredElytraModel.createBodyLayer().bakeRoot());
     }
 }
